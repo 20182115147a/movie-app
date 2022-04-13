@@ -9,3 +9,10 @@ export const movieType = {
     top_rated:'top_rated',
     upcoming:'upcoming'
 }
+const tmdbApi = {
+  getMoviesList : (type,params) => {
+    const url = 'movie/' + movieType[type]
+    return axiosClient.get(url,params)
+    }
+}
+export default tmdbApi
