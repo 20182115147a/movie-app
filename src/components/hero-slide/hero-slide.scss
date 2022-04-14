@@ -1,0 +1,107 @@
+@use '../../scss/' as *;
+.hero-slide {
+    position: relative;
+    &__item {
+        @include flex(center,flex-start);
+        padding: 9rem 120px;
+        height: 100%;
+        width:100%;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+       
+        &::before {
+            content: '';
+            width: 100%;
+            top: 0;
+            left: 0;
+            height: 100%;
+            position: absolute;
+           @include overlay
+
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(to top, #0f0f0f, rgba(0, 0, 0, 0));
+        }
+        &__desc {
+            z-index: 99;
+            width: 55%;
+            line-height: 1;
+            padding:0 3rem;
+            &__title {
+                font-size: 80px;
+            }
+            &__overview {
+                margin-top: 3rem;
+                font-weight: 700;
+                line-height: 1.5;
+            }
+            .btns {
+                margin-top: 3rem;
+                & > * ~ * {
+                    margin-left: 1rem;
+                }
+            }
+            &__title,&__overview,.btns {
+                transform:translateY(-100px);
+                opacity:0;
+                transition: transform .5s ease, opacity .5s ease;
+            }
+        }
+        .poster {
+            transform:scale(0);
+            z-index: 99;
+            @include flex(center,flex-start);
+            img {
+                width:400px;
+                border-radius:30px;
+            }
+            transition:transform .6s ease;
+        }
+        &.active {
+            .hero-slide__item__desc__title,
+            .hero-slide__item__desc__overview,
+            .btns {
+                transform: translateY(0);
+                opacity:1;
+            }
+            .hero-slide__item__desc__title {
+                transition-delay: .3s ,.3s;
+            }
+            .hero-slide__item__desc__overview {
+                transition-delay: .6s ,.6s;
+            }
+            .btns {
+                transition-delay: .9s ,.9s;
+            }
+            .poster {
+                transform: scale(1);
+            }
+        }
+        @include mobile {
+            padding:9rem 0px;
+            // @include flex(center,center);
+            // flex-direction: column;
+
+            &__desc {
+                &__title {
+                    font-size: 4rem;
+                }
+                width:100%;
+            }
+            .poster  {
+                
+                img {
+                    display:none
+                }
+            }
+        }
+    }
+}

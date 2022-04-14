@@ -8,13 +8,13 @@ const headerNav = [
         path:'/'
     },
     {
-        display:'TV',
-        path:'/tv'
+        display:'Movie',
+        path:'/movie'
     }
     ,
     {
-        display:'Movie',
-        path:'/movie'
+        display:'TV Series',
+        path:'/tv'
     }
 ]
 const Header = props => {

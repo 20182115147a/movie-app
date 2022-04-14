@@ -1,0 +1,29 @@
+@use '../../scss/' as *;
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 500px;
+    z-index: 1000;
+    background-color:$body-bg;
+    transform:translate(-50%,-50%);
+    display:none;
+    &__close {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: $main-color;
+        }
+    }
+    iframe {
+        padding:30px
+    }
+    &.active {
+        display:block;
+    }
+}

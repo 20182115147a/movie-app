@@ -1,8 +1,11 @@
-import {useEffect,useState} from 'react'
-import SwiperCore, {Autoplay} from 'swiper'
+import React,{useEffect,useState,useRef} from 'react'
+import SwiperCore, {Autoplay,Navigation} from 'swiper'
 import {Swiper,SwiperSlide} from 'swiper/react'
-import tmdbApi,{movieType} from '../../api/tmdbApi'
+import tmdbApi,{movieType,category} from '../../api/tmdbApi'
 import apiConfig from '../../api/apiConfig'
+import Button,{OutlineButton} from'../button/Button'
+import Modal from '../modal/Modal';
+import './hero-slide.scss'
 const HeroSlide = () => {
     const [movieItems,setMovieItems] = useState([])
     SwiperCore.use([Autoplay]);
@@ -21,20 +24,69 @@ const HeroSlide = () => {
     },[])
     return (
         <div className="hero-slide">
-            <Swiper modules= {[Autoplay]} 
-                    slidesPerView={2} 
+            <Swiper modules= {[Autoplay,Navigation]} 
+                    grabCursor={true}
+                    direction={'horizontal'}
                     spaceBetween = {0}
-                    direction = 'horizontal'
-                    grabCursor={true}>
-                    {   movieItems.map((item,index) => (
-                        <SwiperSlide key= {index}>  
+                    slidesPerView={1} 
+                    >
+                    {   movieItems.map((movieitem,index) => (
+                        <SwiperSlide key= {index}  >  
                             {({ isActive }) => (
-                            <img src={apiConfig.originalImage(item.backdrop_path)} alt=""></img>
+                                <HeroSlideItem item={movieitem} isActive={isActive}/>
                             )}
                         </SwiperSlide>)) 
                     }
             </Swiper>
+            {movieItems.map((item,index) => (
+                <MovieTrailers item={item} key={index}></MovieTrailers>
+            ))}
         </div>
     )
 }
+const HeroSlideItem = props => {
+    const {item} = props
+    const bgUrl = apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.backdrop_poster)
+    const setMovieTrailerActive = async () => {
+        const modal = document.querySelector(`#modal_${item.id}`)
+        const videos = await tmdbApi.getVideos(category.movie,item.id);
+        if (videos.results.length > 0) {
+            const videoSrc = 'https://www.youtube.com/embed/' + videos.results[0].key;
+            modal.querySelector('iframe').setAttribute('src',videoSrc);
+        }
+        else {
+            modal.innerHTML= "No trailer"
+        }
+        console.log(videos.results[0].key)
+        modal.classList.add('active')
+    }
+    return (
+        <div className = {`hero-slide__item ${props.isActive ? 'active' : ''}`} style={{backgroundImage:` url(${bgUrl})`}}>
+            <div className="hero-slide__item__desc">
+                <h1 className="hero-slide__item__desc__title">{item.title}</h1>
+                <p className="hero-slide__item__desc__overview">{item.overview}</p>
+                <div className="btns">
+                    <Button>Watch Now</Button>
+                    <OutlineButton className="btn-outline" onClick={setMovieTrailerActive}>View Trailers</OutlineButton>
+                </div>
+            </div>
+            <div className = "poster">
+                <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+            </div>
+        </div>
+    )
+}
+const MovieTrailers = (props) => {
+    const {item} = props
+    const iframe = useRef(null)
+    const onClose = () => {
+        iframe.current.setAttribute('src','')
+    }
+    return (
+        <Modal active={false} id={`modal_${item.id}`} onClose={onClose} >
+            <iframe title= {item.title}  width="100%" height="500px" ref={iframe}/>
+        </Modal>
+    )
+}
+
 export default HeroSlide

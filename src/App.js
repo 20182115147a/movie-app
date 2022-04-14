@@ -1,7 +1,9 @@
 import './App.scss';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import Routes from './Config/Routes'
+import Routes from './Config/Routes';
+import '../node_modules/swiper/swiper.min.css';
+import './assets/boxicons-2.0.7/css/boxicons.min.css';
 import {BrowserRouter,Route} from 'react-router-dom'
 
 
