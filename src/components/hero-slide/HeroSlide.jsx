@@ -6,7 +6,7 @@ import apiConfig from '../../api/apiConfig'
 import Button,{OutlineButton} from'../button/Button'
 import Modal from '../modal/Modal';
 import './hero-slide.scss'
-const HeroSlide = () => {
+const HeroSlide = (props) => {
     const [movieItems,setMovieItems] = useState([])
     SwiperCore.use([Autoplay]);
     useEffect(() => {
@@ -23,12 +23,11 @@ const HeroSlide = () => {
         getMovies()
     },[])
     return (
-        <div className="hero-slide">
+        <div className={`hero-slide ${props.className}`}>
             <Swiper modules= {[Autoplay,Navigation]} 
                     grabCursor={true}
-                    direction={'horizontal'}
-                    spaceBetween = {0}
-                    slidesPerView={1} 
+                    spaceBetween = {10}
+                    slidesPerView={'auto'} 
                     >
                     {   movieItems.map((movieitem,index) => (
                         <SwiperSlide key= {index}  >  

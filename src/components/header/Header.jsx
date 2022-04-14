@@ -8,7 +8,7 @@ const headerNav = [
         path:'/'
     },
     {
-        display:'Movie',
+        display:'Movies',
         path:'/movie'
     }
     ,
