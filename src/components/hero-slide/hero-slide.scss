@@ -2,14 +2,20 @@
 .hero-slide {
     position: relative;
     &__item {
-        @include flex(center,flex-start);
-        padding: 9rem 120px;
-        height: 100%;
-        width:100%;
-        position: relative;
+        
+        @include flex(center,center);
+        
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        &__container {
+            @include flex(center,flex-start);
+            padding: 9rem 0;
+            height: 100%;
+            width:100%;
+            position: relative;
+            max-width:1660px;
+        }
         &::before {
             content: '';
             width: 100%;
@@ -85,9 +91,22 @@
             }
         }
         @include mobile {
-            padding:9rem 0px;
-            // @include flex(center,center);
-            // flex-direction: column;
+
+            &__desc {
+                &__title {
+                    font-size: 4rem;
+                }
+                width:100%;
+            }
+            .poster  {
+                
+                img {
+                    display:none
+                }
+            }
+        }
+        @include tablet {
+           
 
             &__desc {
                 &__title {

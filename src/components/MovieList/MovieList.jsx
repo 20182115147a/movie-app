@@ -3,6 +3,7 @@ import './movie-list.scss'
 import tmdbApi,{category} from '../../api/tmdbApi'
 import {Swiper,SwiperSlide} from 'swiper/react'
 import apiConfig from '../../api/apiConfig'
+import MovieCard from '../movie-card/MovieCard'
 const MovieList = (props) => {
     const [movieList,setMovieList] = useState([])
     let response = null
@@ -10,14 +11,13 @@ const MovieList = (props) => {
     useEffect(() => {
         const getMovieList = async () => {
             if (props.type !== 'similar') {
-                console.log(props.category)
+                
                 switch(props.category) {
                     case category.movie:
                          response = await tmdbApi.getMoviesList(props.type,{params})
                         break;
                     default :
-                       { response = await tmdbApi.getTvList(props.type,{params})
-                    console.log(response)}
+                       { response = await tmdbApi.getTvList(props.type,{params})}
                 }
             }
             else {
@@ -38,7 +38,7 @@ const MovieList = (props) => {
                 {
                     movieList.map((movieItem,index) => (
                         <SwiperSlide key={index}>
-                            <img src={apiConfig.w500Image(movieItem.poster_path)}/>
+                            <MovieCard item={movieItem} category={props.category}></MovieCard>
                         </SwiperSlide>
                     ))
                 }

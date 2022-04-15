@@ -1,0 +1,18 @@
+@use '../../scss/' as *;
+.movie-grid{
+        position: relative;
+          &__list {
+            @include flex(flex-start,unset);
+            flex-wrap: wrap;
+            gap:20px;
+                &__item {
+                flex:200px;
+                flex-grow: 1;
+                margin-bottom: 1rem;
+                }
+          }
+          &__loadmore {
+            margin: 0 auto;
+            text-align: center;
+          }
+}

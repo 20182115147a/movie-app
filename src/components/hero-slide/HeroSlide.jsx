@@ -61,16 +61,18 @@ const HeroSlideItem = props => {
     }
     return (
         <div className = {`hero-slide__item ${props.isActive ? 'active' : ''}`} style={{backgroundImage:` url(${bgUrl})`}}>
-            <div className="hero-slide__item__desc">
-                <h1 className="hero-slide__item__desc__title">{item.title}</h1>
-                <p className="hero-slide__item__desc__overview">{item.overview}</p>
-                <div className="btns">
-                    <Button>Watch Now</Button>
-                    <OutlineButton className="btn-outline" onClick={setMovieTrailerActive}>View Trailers</OutlineButton>
+            <div className="hero-slide__item__container">
+                <div className="hero-slide__item__desc">
+                    <h1 className="hero-slide__item__desc__title">{item.title}</h1>
+                    <p className="hero-slide__item__desc__overview">{item.overview}</p>
+                    <div className="btns">
+                        <Button>Watch Now</Button>
+                        <OutlineButton className="btn-outline" onClick={setMovieTrailerActive}>View Trailers</OutlineButton>
+                    </div>
                 </div>
-            </div>
-            <div className = "poster">
-                <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+                <div className = "poster">
+                    <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+                </div>
             </div>
         </div>
     )
