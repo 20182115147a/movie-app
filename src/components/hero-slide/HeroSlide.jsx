@@ -5,9 +5,11 @@ import tmdbApi,{movieType,category} from '../../api/tmdbApi'
 import apiConfig from '../../api/apiConfig'
 import Button,{OutlineButton} from'../button/Button'
 import Modal from '../modal/Modal';
+import {useHistory} from 'react-router'
 import './hero-slide.scss'
 const HeroSlide = (props) => {
     const [movieItems,setMovieItems] = useState([])
+
     SwiperCore.use([Autoplay]);
     useEffect(() => {
         const getMovies = async() => {
@@ -44,6 +46,7 @@ const HeroSlide = (props) => {
     )
 }
 const HeroSlideItem = props => {
+    const history = useHistory();
     const {item} = props
     const bgUrl = apiConfig.originalImage(item.backdrop_path ? item.backdrop_path : item.backdrop_poster)
     const setMovieTrailerActive = async () => {
@@ -56,7 +59,6 @@ const HeroSlideItem = props => {
         else {
             modal.innerHTML= "No trailer"
         }
-        console.log(videos.results[0].key)
         modal.classList.add('active')
     }
     return (
@@ -66,7 +68,7 @@ const HeroSlideItem = props => {
                     <h1 className="hero-slide__item__desc__title">{item.title}</h1>
                     <p className="hero-slide__item__desc__overview">{item.overview}</p>
                     <div className="btns">
-                        <Button>Watch Now</Button>
+                        <Button onClick ={()=> history.push(`/movie/${item.id}`)}>Watch Now</Button>
                         <OutlineButton className="btn-outline" onClick={setMovieTrailerActive}>View Trailers</OutlineButton>
                     </div>
                 </div>

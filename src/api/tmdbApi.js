@@ -29,7 +29,10 @@ const tmdbApi = {
     search: (cate,params) => {
         const url = 'search/' + category[cate]; 
         return axiosClient.get(url,params)
+    },
+    getDetail:(cate,id,params) => {
+        const url = category[cate] + '/' +id;
+        return axiosClient.get(url,params)
     }
-
 }
 export default tmdbApi

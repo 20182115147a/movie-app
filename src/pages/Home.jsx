@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import MovieList from '../components/MovieList/MovieList'
 import { category,movieType } from '../api/tmdbApi'
 const Home = props => {
+        
     return (
         <>
         <HeroSlide className='mb-3'/>

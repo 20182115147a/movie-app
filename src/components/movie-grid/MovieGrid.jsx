@@ -38,9 +38,9 @@ const MovieGrid = (props) => {
     },[category,keyword])
     const getMore = async () => {
              let response = null;
-             setPage(page + 1)
+             
              const params = {
-                 page
+                 page:page +1,
              }
              if (keyword === undefined) {
                 switch(category) {
@@ -58,12 +58,13 @@ const MovieGrid = (props) => {
                 }
                 response = await tmdbApi.search(cate[category],{params})
             }  
+            setPage(page+1)
             setItems([...items,...response.results]);
     };
     return (
         <div className="movie-grid">
             <div className="section mb-3">
-                <SearchInput category={props.category} placeholder='Enter keyword'></SearchInput>
+                <SearchInput category={props.category} keyword={keyword} placeholder='Enter keyword'></SearchInput>
             </div>
             <div className="movie-grid__list mb-3">
                 {items.map((item,index) => (
