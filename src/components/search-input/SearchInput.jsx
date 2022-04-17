@@ -6,11 +6,9 @@ import Button from '../button/Button'
 const SearchInput = props => {
     const history = useHistory()
     const [keyword,setKeyword] = useState(props.keyword ? props.keyword : '')
-    let title = 1;
     const goToSearch = useCallback(()=> {
         if (keyword.trim().length > 0){
             history.push(`/${cate[props.category]}/search/${keyword}`)
-            console.log(title += 1)
         }
        
     },[keyword,props.category,history])

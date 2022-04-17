@@ -8,7 +8,7 @@ import SearchInput from '../search-input/SearchInput'
 import {useParams} from'react-router'
 const MovieGrid = (props) => {
     const {category} = props;
-    const [items,setItems] = useState([]);
+    const [items,setItems] = useState(null);
     const [page,setPage] = useState(1);
     const {keyword} = useParams();
     const [totalPage,setTotalPage] = useState(null);
@@ -54,6 +54,7 @@ const MovieGrid = (props) => {
              }
             else {
                 const params = {
+                    page:page +1,
                     query:keyword
                 }
                 response = await tmdbApi.search(cate[category],{params})
@@ -63,23 +64,26 @@ const MovieGrid = (props) => {
     };
     return (
         <div className="movie-grid">
-            <div className="section mb-3">
+            {items && (<>
+                <div className="section mb-3">
                 <SearchInput category={props.category} keyword={keyword} placeholder='Enter keyword'></SearchInput>
-            </div>
-            <div className="movie-grid__list mb-3">
-                {items.map((item,index) => (
-                        <div className="movie-grid__list__item" key={index}>
-                                <MovieCard item={item} category={category} ></MovieCard>
-                        </div>
-                    
-                ))}
-            </div>
-            {
-                            page < totalPage ? 
-                            (<div className="movie-grid__loadmore">
-                                <OutlineButton className="small" onClick = {getMore}>Load More</OutlineButton>
-                            </div>) : <></>
-                }
+                </div>
+                <div className="movie-grid__list mb-3">
+                    {items.map((item,index) => (
+                            <div className="movie-grid__list__item" key={index}>
+                                    <MovieCard item={item} category={category} ></MovieCard>
+                            </div>
+                        
+                    ))}
+                </div>
+                {
+                                page < totalPage ? 
+                                (<div className="movie-grid__loadmore">
+                                    <OutlineButton className="small" onClick = {getMore}>Load More</OutlineButton>
+                                </div>) : <></>
+                    }
+            
+            </>)}
         </div>
     )
 }
