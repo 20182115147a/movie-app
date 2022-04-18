@@ -2,13 +2,12 @@ import React,{useState,useEffect} from 'react'
 import './movie-list.scss'
 import tmdbApi,{category} from '../../api/tmdbApi'
 import {Swiper,SwiperSlide} from 'swiper/react'
-import apiConfig from '../../api/apiConfig'
 import MovieCard from '../movie-card/MovieCard'
 const MovieList = (props) => {
     const [movieList,setMovieList] = useState([])
-    let response = null
-    const params = {}
     useEffect(() => {
+        const params = {};
+        let response = null
         const getMovieList = async () => {
             if (props.type !== 'similar') {
                 
@@ -26,7 +25,7 @@ const MovieList = (props) => {
             setMovieList(response.results);
         }
         getMovieList();
-    },[])
+    },[props.category,props.type,props.id])
 
     return (
         <div className='movie-list'>

@@ -25,20 +25,22 @@ const HeroSlide = (props) => {
         getMovies()
     },[])
     return (
-        <div className={`hero-slide ${props.className}`}>
-            <Swiper modules= {[Autoplay,Navigation]} 
-                    grabCursor={true}
-                    spaceBetween = {10}
-                    slidesPerView={'auto'} 
-                    >
-                    {   movieItems.map((movieitem,index) => (
-                        <SwiperSlide key= {index}  >  
-                            {({ isActive }) => (
-                                <HeroSlideItem item={movieitem} isActive={isActive}/>
-                            )}
-                        </SwiperSlide>)) 
-                    }
-            </Swiper>
+        <div className={`hero-slide__container ${props.className}`}>
+           <div className="hero-slide">
+                <Swiper modules= {[Autoplay,Navigation]} 
+                            grabCursor={true}
+                            spaceBetween = {10}
+                            slidesPerView={'auto'} 
+                            >
+                            {   movieItems.map((movieitem,index) => (
+                                <SwiperSlide key= {index}  >  
+                                    {({ isActive }) => (
+                                        <HeroSlideItem item={movieitem} isActive={isActive}/>
+                                    )}
+                                </SwiperSlide>)) 
+                            }
+                    </Swiper>
+           </div>
             {movieItems.map((item,index) => (
                 <MovieTrailers item={item} key={index}></MovieTrailers>
             ))}

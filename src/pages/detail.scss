@@ -2,7 +2,8 @@
 .card__detail {
     &__container {
         max-width: 1260px;
-        margin:0 auto;
+        margin:-200px auto 48px;
+        padding: 0 2rem;
     }
     &__bg {
         position: relative;
@@ -31,9 +32,11 @@
         }    
     }
     &__info {
-       
+        
         @include flex(flex-start,flex-start);
+       
         &__poster {
+            z-index: 88;
             flex:1 1;
            &__img {
             padding-top: 165%;
@@ -42,12 +45,69 @@
             background-repeat: no-repeat;
             border-radius:30px
            }
-          
+          @include mobile {
+              display:none;
+          }
         }
         &__desc {
             width:70%;
+            padding-left: 2rem;
+            z-index: 88;
+            @include mobile {
+                width:100%;
+                padding-left: 0rem;
+            }
+        }
+        &__name {
+
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            line-height: 1
+        }
+        &__genres {
+            margin-bottom: 2rem;
+            & > * ~ * {
+                margin-left: 0.5rem;
+            }
+            & .btn {
+                font-size: 0.8rem;
+                padding:0.5rem 1.5rem;
+            }
+        }
+        &__overview {
+            margin-bottom: 2rem;
+        }
+        & .casts {
+            &__list {
+                display:grid;
+                grid-template-columns: repeat(auto-fill,(minmax(90px,1fr)));
+                gap:10px
+            }
+            &__item {
+                flex:90px 1;
+                &__img {
+                    height:160px;
+                }
+                &__name {
+                    font-size: 0.8rem;
+                }
+            }
         }
     }
-    
-    
+    &__trailers {
+        max-width: 1660px;
+        margin: 0 auto;
+        padding:0 2rem 3rem;
+    }
+    &__trailer {
+        margin-bottom: 3rem;
+        &__title {
+            margin-bottom: 1.5rem;
+        }
+    }
+    & .similar {
+        max-width: 1660px;
+        margin: 0 auto;
+        padding:0 2rem 3rem;
+    }
 }

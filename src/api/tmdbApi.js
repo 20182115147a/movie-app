@@ -23,7 +23,7 @@ const tmdbApi = {
         return axiosClient.get(url,{params:{}})
     },
     getSimilar: (cate,id) => {
-        const url = category[cate] + '/' +id +'/videos'
+        const url = category[cate] + '/' +id +'/similar'
         return axiosClient.get(url,{params:{}})
     },
     search: (cate,params) => {
@@ -33,6 +33,10 @@ const tmdbApi = {
     getDetail:(cate,id,params) => {
         const url = category[cate] + '/' +id;
         return axiosClient.get(url,params)
+    },
+    getCredits:(cate,id,params) => {
+        const url = category[cate] + '/' +id + '/credits';
+        return axiosClient.get(url,params);
     }
 }
 export default tmdbApi
